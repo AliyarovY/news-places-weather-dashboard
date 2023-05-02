@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "News & Places Weather Dashboard"
+version = "0.1.0"
+description = "Данное Django-приложение позволяет управлять новостями и примечательными местами, а также отслеживать сводку погоды для этих мест."
+authors = ["Yusif"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2"
+python-dotenv = "^1.0.0"
+djangorestframework = "^3.14.0"
+pillow = "^9.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
