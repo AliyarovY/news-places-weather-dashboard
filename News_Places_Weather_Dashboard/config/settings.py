@@ -1,6 +1,5 @@
 from pathlib import Path
 from dotenv import load_dotenv
-from datetime import time
 
 import os
 
@@ -29,6 +28,7 @@ INSTALLED_APPS = [
     'celery',
 
     'news',
+    'place',
 ]
 
 MIDDLEWARE = [
@@ -46,7 +46,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/root/work/projects/tw2/News_Places_Weather_Dashboard/place/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,6 +57,7 @@ TEMPLATES = [
             ],
         },
     },
+
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
