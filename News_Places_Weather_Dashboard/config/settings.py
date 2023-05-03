@@ -22,7 +22,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_summernote',
     'rest_framework',
+
+    'news',
 ]
 
 MIDDLEWARE = [

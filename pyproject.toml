@@ -11,6 +11,7 @@ django = "^4.2"
 python-dotenv = "^1.0.0"
 djangorestframework = "^3.14.0"
 pillow = "^9.5.0"
+django-summernote = "^0.8.20.0"
 
 
 [build-system]
