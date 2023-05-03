@@ -1,5 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import time
 
 import os
 
@@ -24,6 +25,8 @@ INSTALLED_APPS = [
 
     'django_summernote',
     'rest_framework',
+    'constance',
+    'celery',
 
     'news',
 ]
@@ -95,3 +98,18 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CONSTANCE_CONFIG = {
+    'RECIPIENTS': ([], 'List of recipients'),
+    'SUBJECT': ('Today news', 'Subject line'),
+    'MESSAGE': ('...', 'Message Text'),
+    'TIME': (dict(hour=12, minute=0), 'Sending time', dict),
+}
