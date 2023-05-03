@@ -5,7 +5,6 @@ from .models import News
 
 class NewsSerializer(ModelSerializer):
     author = serializers.CurrentUserDefault()
-    # preview_image = serializers.ReadOnlyField()
 
     class Meta:
         model = News
