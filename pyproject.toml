@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "News & Places Weather Dashboard"
-version = "0.1.0"
+version = "1.0.0"
 description = "Данное Django-приложение позволяет управлять новостями и примечательными местами, а также отслеживать сводку погоды для этих мест."
 authors = ["Yusif"]
 readme = "README.md"
@@ -16,6 +16,12 @@ django-celery-beat = "^2.5.0"
 django-constance = { extras = ["redis"], version = "^2.9.1" }
 openpyxl = "^3.1.2"
 django-admin-geomap = "^1.5"
+celery = "^5.2.7"
+redis = "^4.5.4"
+requests = "^2.29.0"
+xlsxwriter = "^3.1.0"
+django-rest-swagger = "^2.2.0"
+drf-yasg = {extras = ["validation"], version = "^1.21.5"}
 
 
 [build-system]

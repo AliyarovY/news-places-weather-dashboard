@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DB: ${DATABASE_NAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+
+  web:
+    image: django:1.10
+    command: make run
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DB: ${DATABASE_NAME}
+      DB_HOST: db

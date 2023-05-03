@@ -26,9 +26,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'constance',
     'celery',
+    'drf_yasg',
 
     'news',
     'place',
+    'weather_summary_',
 ]
 
 MIDDLEWARE = [
@@ -64,11 +66,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASS'),
     }
 }
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -106,11 +111,19 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-
 CONSTANCE_CONFIG = {
     'RECIPIENTS': ([], 'List of recipients'),
     'SUBJECT': ('Today news', 'Subject line'),
     'MESSAGE': ('...', 'Message Text'),
     'TIME': (dict(hour=12, minute=0), 'Sending time', dict),
+}
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+CELERY_BEAT_SCHEDULE = {
+    'get_weather_summary': {
+        'task': 'places.tasks.get_weather_summary',
+        'schedule': 3600,
+    },
 }
