@@ -1,25 +1,38 @@
-version: '3'
+version: "3.9"
 
 services:
   db:
-    image: postgres:15
+    image: postgres:14.6-alpine
+    env_file:
+      - .env
     environment:
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_DB: ${DATABASE_NAME}
-      DATABASE_HOST: ${DATABASE_HOST}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASS}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./pddata:/var/lib/postgresql/data
 
-  web:
-    image: django:1.10
-    command: make run
+  api:
+    build:
+      context: .
+    tty: false
     volumes:
       - .:/code
+    restart: on-failure
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     depends_on:
-      - db
-    environment:
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_DB: ${DATABASE_NAME}
-      DB_HOST: db
+      db:
+        condition: service_healthy
+
+volumes:
+  api:
+  db:
+    driver: local
